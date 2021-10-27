@@ -121,11 +121,11 @@ Boss::~Boss()
 	//Player** targets;
 }
 
-void Boss::setPlayers(std::list<Player* >& players)
+void Boss::setPlayers(std::list<Player >& players)
 {
 	int inc = 0;
 	for(auto& a : players)
-		targets[inc++] = a;
+		targets[inc++] = &a;
 }
 
 bool Boss::randAttacks()

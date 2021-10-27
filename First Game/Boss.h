@@ -5,7 +5,7 @@
 #include "Player.h"
 #include "Minion.h"
 
-class Boss: public Model
+class Boss : public Model
 {
 public:
 	void init();
@@ -14,7 +14,7 @@ public:
 	Boss(const char* path);
 	~Boss();
 
-	void setPlayers(std::list<Player* >& players);
+	void setPlayers(std::list<Player >& players);
 
 	template<class T>
 	void insertionSort(std::vector<T> vec)
@@ -44,7 +44,7 @@ public:
 	std::list<Minion*> minions;
 	std::list<std::shared_ptr<Model>> missiles;
 	Model* lazer;
-	bool 	bossFlash;
+	bool bossFlash;
 private:
 	void shootLazer(int playerIndex);
 	//boss's blood bar

@@ -16,13 +16,14 @@ enum PlayerType
 	specialist
 };
 
-class Player: public Model
+class Player : public Model
 {
 public:
 	void init(int index);
 
 	Player(int index = 0);
 	Player(Player& model);
+	Player(const Player& model);
 	Player(const char* path);
 
 	virtual ~Player();
@@ -31,7 +32,7 @@ public:
 	virtual void setHealth(float v);
 	virtual float getTimeSinceLastMissile();
 	virtual void setTimeSinceLastMissile(float v);
-	void hitByEnemy(Model * mod, float damage = 35.f);
+	void hitByEnemy(Model* mod, float damage = 35.f);
 	int getBulletCount();
 	void setBulletCount(int v);
 	bool bulletCollisions(Model* mod);
@@ -53,32 +54,32 @@ public:
 	float onHitShakeTimer = 0;
 	float onHitShakeDir = 0.6f;
 
-	bool dead=false;
+	bool dead = false;
 protected:
 	float m_initialHealth = 100;
 	int m_index;
 	float angle;
 	float duration = 0;
-	bool m_active=true;
+	bool m_active = true;
 	Animation* squash;
 	Model* graveStone, //22
 		* bulletCircle,//74
 		* ringID,//26
 		* gun;//54
 
-	
+
 	std::vector<float> timer;
 	std::vector<Model*> bullets;
 	std::vector<Coord3D<>> velocity;
 	float move = .1f;
 
-	
-	Model* m_baseBar, * m_lifeBar;
+
+	Model* m_baseBar = nullptr, * m_lifeBar = nullptr;
 
 	bool gunControlLaw = false, dashControl = false;
-	float time;
+	float time = 0;
 
 	float m_health = 100;
 	int m_bulletCount = 30;
-	float m_timeSinceLastMissile;
+	float m_timeSinceLastMissile = 0;
 };

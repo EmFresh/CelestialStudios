@@ -88,7 +88,7 @@ void Player::init(int index)
 	setPlayerIndex(index);
 }
 
-Player::Player(int index):Model()
+Player::Player(int index) :Model()
 {
 	init(index);
 }
@@ -98,8 +98,14 @@ Player::Player(Player& model) : Model(model)
 	type = model.type;
 	init(0);
 }
+Player::Player(const Player& model) : Model(model)
+{
+	type = model.type;
+	init(0);
+}
 
-Player::Player(const char* path):Model(path)
+
+Player::Player(const char* path) :Model(path)
 {
 	init(0);
 }
@@ -217,9 +223,9 @@ void Player::onPlayArea(Model* mod)
 {
 	if(!collision2D(mod, {0,1,0}))
 		translate(
-		abs(getLocalPosition().x) > mod->getWidth() / 2 ? getLocalPosition().x < 0 ? -mod->getWidth() / 2 : mod->getWidth() / 2 : getLocalPosition().x,
-		0,
-		abs(getLocalPosition().z) > mod->getDepth() / 2 ? getLocalPosition().z < 0 ? -mod->getDepth() / 2 : mod->getDepth() / 2 : getLocalPosition().z);
+			abs(getLocalPosition().x) > mod->getWidth() / 2 ? getLocalPosition().x < 0 ? -mod->getWidth() / 2 : mod->getWidth() / 2 : getLocalPosition().x,
+			0,
+			abs(getLocalPosition().z) > mod->getDepth() / 2 ? getLocalPosition().z < 0 ? -mod->getDepth() / 2 : mod->getDepth() / 2 : getLocalPosition().z);
 }
 
 bool Player::bulletCollisions(Model* mod)
@@ -267,8 +273,8 @@ void Player::update(float dt)
 			{
 
 				angle = acosf(p1->getSticks()[RS].x /
-							  sqrtf(p1->getSticks()[RS].x * p1->getSticks()[RS].x
-							  + p1->getSticks()[RS].y * p1->getSticks()[RS].y)) * (180 / (float)M_PI);
+					sqrtf(p1->getSticks()[RS].x * p1->getSticks()[RS].x
+						+ p1->getSticks()[RS].y * p1->getSticks()[RS].y)) * (180 / (float)M_PI);
 				angle += (p1->getSticks()[RS].y < 0 ? (180 - angle) * 2 : 0) + 90;//90 represents the start angle
 				angle = fmodf(angle, 360);
 			}

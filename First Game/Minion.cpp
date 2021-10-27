@@ -42,6 +42,11 @@ void Minion::addTarget(Player* mod)
 	targets.push_back(mod);
 }
 
+void Minion::clearTargets()
+{
+	targets.clear();
+}
+
 bool Minion::hitByEnemy(Model* enemy, float damage)
 {
 	if(enemy)

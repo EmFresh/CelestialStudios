@@ -1,0 +1,3 @@
+[submodule "GameEmGine"]
+	path = GameEmGine
+	url = https://github.com/EmFresh/EmGine-Project.git

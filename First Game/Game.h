@@ -789,6 +789,11 @@ public:
 	//	light->setDiffuse({110,110,110});
 		light->enableAmbiant(false);
 		LightManager::addLight(light);
+
+		light = new Light();
+		light->setLightType(Light::TYPE::POINT);
+		LightManager::addLight(light);
+
 		std::next(mod.begin(), 9)->setCastShadow(false);
 
 	}

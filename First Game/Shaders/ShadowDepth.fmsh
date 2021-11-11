@@ -1,8 +1,9 @@
 #version 420
 
-out vec3 outColor;
+out vec4 outColor;
 
 void main()
 {
-outColor = vec3(gl_FragCoord.z);      
+outColor = vec4(gl_FragCoord.z);   
+outColor.a = 1;   
 }

@@ -1,8 +1,8 @@
-# Install script for directory: D:/Visual Studio 2020/Projects/CelestialStudios/Externals/include/glm
+# Install script for directory: D:/Visual Studio 2020/Projects/CelestialStudios/GameEmGine/Externals/include/glm
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "D:/Visual Studio 2020/Projects/CelestialStudios/Externals/include/glm/out/install/x64-Debug")
+  set(CMAKE_INSTALL_PREFIX "D:/Visual Studio 2020/Projects/CelestialStudios/GameEmGine/Externals/include/glm/out/install/x64-Debug")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -40,5 +40,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "D:/Visual Studio 2020/Projects/CelestialStudios/Externals/include/glm/out/build/x64-Debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "D:/Visual Studio 2020/Projects/CelestialStudios/GameEmGine/Externals/include/glm/out/build/x64-Debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

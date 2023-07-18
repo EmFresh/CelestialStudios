@@ -59,7 +59,7 @@ public:
 		rotDown = (key == GLFW_KEY_DOWN ? false : rotDown);
 
 		if(key == GLFW_KEY_TAB)
-			++(*(char*)&currentState) %= 3;//don't ask
+			++(*(char*)&currentState) %= (int)CONTROL_STATE::COUNT-1;//don't ask
 
 		switch(currentState)
 		{
@@ -95,9 +95,9 @@ public:
 
 		//changes fps limit
 		if(key == GLFW_KEY_KP_6)
-			GameEmGine::setFPSLimit(util::clamp<short>(0, 60, GameEmGine::getFPSLimit() + 5));
+			GameEmGine::setFPSLimit(util::clamp<short>(0, 240, GameEmGine::getFPSLimit() + 5));
 		if(key == GLFW_KEY_KP_4)
-			GameEmGine::setFPSLimit(util::clamp<short>(0, 60, GameEmGine::getFPSLimit() - 5));
+			GameEmGine::setFPSLimit(util::clamp<short>(0, 240, GameEmGine::getFPSLimit() - 5));
 
 		if(key == GLFW_KEY_F) //Toggles Full-screen
 		{
@@ -188,41 +188,43 @@ public:
 		GameEmGine::getMainCamera()->rotate({-45,0,0});
 
 		/// ~ Post Effects~ ///
-		Scene::customPostEffects = [&](FrameBuffer*gBuff, FrameBuffer* post, float )
+		Scene::customPostEffects = [&](FrameBuffer*gBuff, FrameBuffer* post, float dt)
 		{
-			gBuff,post;
+			gBuff,post,dt;
 
 			static Text mode;
 
 			static FrameBuffer screen(1, "Post Screen");
 			screen.initColourTexture(0, post->getColourWidth(0), post->getColourHeight(0));
 			screen.resizeColour(0, post->getColourWidth(0), post->getColourHeight(0));
-
+			
 			OrthoPeramiters ortho{0,(float)GameEmGine::getWindowWidth(),(float)GameEmGine::getWindowHeight(),0,0,500};
 			Camera cam(&ortho);
-
+			
 			if(!screen.checkFBO())
 			{
 				puts("FBO failed Creation");
 				//system("pause");
 				return;
 			}
-
+			
 			mode.setText(modeStr.c_str());
 			mode.setTextSize(50);
 			mode.rotate(180, 0, 0);
-
+			
 			Vec2i offset{-int(mode.getWidth() * 0.1f), int(-GameEmGine::getWindowHeight() + mode.getHeight() * 2)};
 			mode.translate(GameEmGine::getWindowSize() - mode.getSize() + offset);
-
+			
 			post->copyColourToBuffer(screen.getColourWidth(0), screen.getColourHeight(0), &screen);
-
-
+			
+			
 			screen.enable();
 			mode.render(&cam);
 			screen.disable();
+			
+			screen.copyColourToBuffer(post->getColourWidth(0), post->getColourHeight(0), post);
 
-		//	screen.copyColourToBuffer(post->getColourWidth(0), post->getColourHeight(0), post);
+			//gBuff->copySingleColourToBuffer(post->getColourWidth(0), post->getColourHeight(0), post, 2, 0);
 
 		};
 
@@ -792,7 +794,7 @@ public:
 
 		light = new Light();
 		light->setLightType(Light::TYPE::POINT);
-		LightManager::addLight(light);
+		//LightManager::addLight(light);
 
 		std::next(mod.begin(), 9)->setCastShadow(false);
 
@@ -1439,6 +1441,8 @@ private:
 		CAMERA,
 		LEVEL,
 		GAME,
+
+		COUNT,//DO NOT MOVE!!!(DONT SET VALUES EITHER)
 	}currentState;
 	std::string modeStr = "Camera";
 
